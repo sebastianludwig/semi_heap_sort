@@ -93,14 +93,15 @@ def semi_heap_sort(tournament, elements)
 
     # puts a.inspect
 
+    result = []
     while a[left(0)] != nil || a[right(0)] != nil
-        puts a[0]
+        result << a[0]
         replace(tournament, a, 0)
     end
-    puts a[0]
+    result << a[0]
 end
 
 if __FILE__ == $0
-    semi_heap_sort T, elements
+    puts semi_heap_sort(T, elements).inspect
 end
 

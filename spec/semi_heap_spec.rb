@@ -33,6 +33,12 @@ describe 'SemiHeapSort' do
             it 'reports 1 as NOT semi max' do expect(is_semi_max?(@tournament, 1, 0, 2)).to eq  false end
             it 'reports 2 as NOT semi max' do expect(is_semi_max?(@tournament, 2, 0, 1)).to eq  false end
         end
+
+        describe 'semi heap sort' do
+            it 'sorts items correctly' do
+                expect(semi_heap_sort(@tournament, (0..2).to_a)).to eq [0, 1, 2]
+            end
+        end
     end
 
     context 'Figure 2 (b)' do
@@ -54,6 +60,12 @@ describe 'SemiHeapSort' do
             it 'reports 0 as semi max' do expect(is_semi_max?(@tournament, 0, 1, 2)).to eq  true end
             it 'reports 1 as NOT semi max' do expect(is_semi_max?(@tournament, 1, 0, 2)).to eq  false end
             it 'reports 2 as NOT semi max' do expect(is_semi_max?(@tournament, 2, 0, 1)).to eq  false end
+        end
+
+        describe 'semi heap sort' do
+            it 'sorts items correctly' do
+                expect(semi_heap_sort(@tournament, (0..2).to_a)).to eq [0, 2, 1]
+            end
         end
     end
 
@@ -77,6 +89,12 @@ describe 'SemiHeapSort' do
             it 'reports 1 as semi max' do expect(is_semi_max?(@tournament, 1, 0, 2)).to eq  true end
             it 'reports 2 as semi max' do expect(is_semi_max?(@tournament, 2, 0, 1)).to eq  true end
         end
+
+        describe 'semi heap sort' do
+            it 'sorts items correctly' do
+                expect(semi_heap_sort(@tournament, (0..2).to_a)).to eq [0, 1, 2]
+            end
+        end
     end
 
     context 'Figure 2 (d)' do
@@ -98,6 +116,12 @@ describe 'SemiHeapSort' do
             it 'reports 0 as semi max' do expect(is_semi_max?(@tournament, 0, 1, 2)).to eq  true end
             it 'reports 1 as semi max' do expect(is_semi_max?(@tournament, 1, 0, 2)).to eq  true end
             it 'reports 2 as semi max' do expect(is_semi_max?(@tournament, 2, 0, 1)).to eq  true end
+        end
+
+        describe 'semi heap sort' do
+            it 'sorts items correctly' do
+                expect(semi_heap_sort(@tournament, (0..2).to_a)).to eq [0, 2, 1]
+            end
         end
     end
 
@@ -136,6 +160,12 @@ describe 'SemiHeapSort' do
             it 'reports 2 as semi max in 2, 4, 5' do expect(is_semi_max?(@tournament, 1, 3, 4)).to eq true end
             it 'reports 4 as semi max in 2, 4, 5' do expect(is_semi_max?(@tournament, 3, 1, 4)).to eq true end
             it 'reports 5 as semi max in 2, 4, 5' do expect(is_semi_max?(@tournament, 4, 1, 3)).to eq true end
+        end
+
+        describe 'semi heap sort' do
+            it 'sorts items correctly' do
+                expect(semi_heap_sort(@tournament, (0..7).to_a)).to eq [0, 6, 2, 1, 3, 4, 7, 5]
+            end
         end
     end
 end
