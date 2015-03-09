@@ -60,11 +60,8 @@ def right(i)
 end
 
 def semi_heapify(a, i)
-    puts "checking [#{i}, #{left(i)}, #{right(i)}]"
     if not is_semi_max?(T, i, left(i), right(i))
-        puts "#{i} is not semi max"
         winner = max(T, i, left(i), right(i))
-        puts "winner: #{winner} [#{i}, #{left(i)}, #{right(i)}]"
         raise "no winner" if winner.nil?
         a[i], a[winner] = a[winner], a[i]
         semi_heapify(a, winner)
