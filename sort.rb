@@ -66,16 +66,18 @@ class SemiHeapSort
     end
 
     def self.build_semi_heap(a, &comparator)
+        a = a + [nil] * a.size
+        
         ((a.size - 1) / 4).floor.downto(0) do |i|
             semi_heapify(a, i, &comparator)
         end
+        a
     end
 
     def self.semi_heap_sort(elements, &comparator)
         raise "no comparison block given" unless block_given?
-        a = elements + [nil] * elements.size
 
-        build_semi_heap(a, &comparator)
+        a = build_semi_heap(elements, &comparator)
 
         result = []
         while a[left(0)] != nil || a[right(0)] != nil

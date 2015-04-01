@@ -182,6 +182,13 @@ describe SemiHeapSort do
             it 'reports 5 as semi max in 2, 4, 5' do expect(SemiHeapSort.is_semi_max?(5, 2, 4, &@comp)).to eq true end
         end
 
+        describe 'build_semi_heap' do
+            it 'orders items correctly' do
+                a = SemiHeapSort.build_semi_heap((1..8).to_a, &@comp)
+                expect(a.compact).to eq [1, 2, 7, 4, 5, 6, 3, 8]
+            end
+        end
+
         describe 'semi heap sort' do
             it 'sorts items correctly' do
                 expect(SemiHeapSort.semi_heap_sort((1..8).to_a, &@comp)).to eq [1, 7, 3, 2, 4, 5, 8, 6]
