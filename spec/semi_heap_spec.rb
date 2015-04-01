@@ -104,6 +104,14 @@ describe SemiHeapSort do
             ]
         end
 
+        describe 'beats?' do
+            it 'works' do 
+                expect(SemiHeapSort.beats?(0, 2)).to eq true
+                expect(SemiHeapSort.beats?(1, 0)).to eq true
+                expect(SemiHeapSort.beats?(2, 1)).to eq true
+            end
+        end
+
         describe 'max' do
             it 'finds no max' do expect(SemiHeapSort.max(0, 1, 2)).to eq nil end
         end
@@ -134,6 +142,13 @@ describe SemiHeapSort do
                 [0, 1, 1, 1, 0, 1, n, 0],
                 [0, 0, 1, 0, 0, 1, 1, n]
             ]
+        end
+
+        describe 'beats?' do
+            it 'works' do 
+                expect(SemiHeapSort.beats?(6, 2)).to eq true
+                expect(SemiHeapSort.beats?(2, 6)).to eq false
+            end
         end
 
         describe 'max' do
