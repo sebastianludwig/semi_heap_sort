@@ -26,33 +26,33 @@ class SemiHeapSort
     end
 
     # TODO: get rid of tournament parameter here and use T or objects i and j -> get rid of all tournament parameters
-    def self.beats?(i, j)
-        return false if i.nil?
-        return true if j.nil?
-        return j >= @@tournament.column_size || @@tournament[i, j] == 1
+    def self.beats?(a_i, a_j)
+        return false if a_i.nil?
+        return true if a_j.nil?
+        return a_j[:index] >= @@tournament.column_size || @@tournament[a_i[:index], a_j[:index]] == 1
     end
 
-    def self.max(i, j, k)
-        return i if beats?(i, j) && beats?(i, k)
-        return j if beats?(j, i) && beats?(j, k)
-        return k if beats?(k, i) && beats?(k, j)
+    def self.max(a_i, a_j, a_k)
+        return a_i if beats?(a_i, a_j) && beats?(a_i, a_k)
+        return a_j if beats?(a_j, a_i) && beats?(a_j, a_k)
+        return a_k if beats?(a_k, a_i) && beats?(a_k, a_j)
         return nil
     end
 
-    def self.is_max?(i, j, k)     # if i beats j and k
-        max(i, j, k) == i
+    def self.is_max?(a_i, a_j, a_k)     # if i beats j and k
+        max(a_i, a_j, a_k) == a_i
     end
 
-    def self.is_semi_max?(i, j, k)    # if i is semi max, if neither j nor k are max
-        !is_max?(j, i, k) && !is_max?(k, i, j)
+    def self.is_semi_max?(a_i, a_j, a_k)    # if i is semi max, if neither j nor k are max
+        !is_max?(a_j, a_i, a_k) && !is_max?(a_k, a_i, a_j)
     end
 
-    def self.left(i)
-        2 * i + 1
+    def self.left(index)
+        2 * index + 1
     end
 
-    def self.right(i)
-        2 * i + 2
+    def self.right(index)
+        2 * index + 2
     end
 
     def self.replace(a, i)
@@ -68,11 +68,12 @@ class SemiHeapSort
     end
 
     def self.semi_heapify(a, i)
-        if not is_semi_max?(i, left(i), right(i))
-            winner = max(i, left(i), right(i))
+        if not is_semi_max?(a[i], a[left(i)], a[right(i)])
+            winner = max(a[i], a[left(i)], a[right(i)])
             raise "no winner" if winner.nil?
-            a[i], a[winner] = a[winner], a[i]
-            semi_heapify(a, winner)
+            winner_index = winner == a[left(i)] ? left(i) : right(i)
+            a[i], a[winner_index] = a[winner_index], a[i]
+            semi_heapify(a, winner_index)
         end
     end
 
@@ -111,6 +112,11 @@ if __FILE__ == $0
     ]
     SemiHeapSort.check_tournament T
     SemiHeapSort.tournament = T
-    puts SemiHeapSort.semi_heap_sort((0..7).to_a).inspect
+    # puts SemiHeapSort.semi_heap_sort((0..7).to_a).inspect
+
+    elements = (0..7).map { |i| {index: i, label: "n#{i + 1}"} }
+    elements.reverse!
+    SemiHeapSort.semi_heap_sort(elements).each { |e| print e[:label], " " }
+    puts
 end
 
