@@ -5,7 +5,7 @@ class SemiHeapSort
             if row == col
                 raise "#{row}, #{col} ought to be nil" unless e.nil?
             else
-                raise "mismatch in #{row}, #{col} and #{col}, #{row}" if t[col,row] == e
+                raise "mismatch (same value) in #{row}, #{col} and #{col}, #{row}" if t[col,row] == e
             end
         end
     end
