@@ -19,7 +19,7 @@ if __FILE__ == $0
     # puts SemiHeapSort.semi_heap_sort((0..7).to_a).inspect
 
     elements = (0..7).map { |i| {index: i, label: "n#{i + 1}"} }
-    result = SemiHeapSort.semi_heap_sort(elements) { |a, b| T[a[:index], b[:index]] == 1 ? -1 : 1 }
+    result = SemiHeapSort.sort(elements) { |a, b| T[a[:index], b[:index]] == 1 ? -1 : 1 }
     result.each { |e| print e[:label], " " }
     puts
 end

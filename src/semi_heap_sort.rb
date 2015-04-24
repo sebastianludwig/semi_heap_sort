@@ -72,7 +72,7 @@ class SemiHeapSort
         a
     end
 
-    def self.semi_heap_sort(elements, &comparator)
+    def self.sort(elements, &comparator)
         raise "no comparison block given" unless block_given?
 
         a = build_semi_heap(elements, &comparator)

@@ -39,7 +39,7 @@ describe SemiHeapSort do
 
         describe 'semi_heap_sort' do
             it 'sorts items correctly' do
-                expect(SemiHeapSort.semi_heap_sort([1, 2, 3], &@comp)).to eq [1, 2, 3]
+                expect(SemiHeapSort.sort([1, 2, 3], &@comp)).to eq [1, 2, 3]
             end
         end
     end
@@ -66,7 +66,7 @@ describe SemiHeapSort do
 
         describe 'semi_heap_sort' do
             it 'sorts items correctly' do
-                expect(SemiHeapSort.semi_heap_sort([1, 2, 3], &@comp)).to eq [1, 3, 2]
+                expect(SemiHeapSort.sort([1, 2, 3], &@comp)).to eq [1, 3, 2]
             end
         end
     end
@@ -93,7 +93,7 @@ describe SemiHeapSort do
 
         describe 'semi_heap_sort' do
             it 'sorts items correctly' do
-                expect(SemiHeapSort.semi_heap_sort([1, 2, 3], &@comp)).to eq [1, 2, 3]
+                expect(SemiHeapSort.sort([1, 2, 3], &@comp)).to eq [1, 2, 3]
             end
         end
     end
@@ -128,7 +128,7 @@ describe SemiHeapSort do
 
         describe 'semi_heap_sort' do
             it 'sorts items correctly' do
-                expect(SemiHeapSort.semi_heap_sort([1, 2, 3], &@comp)).to eq [1, 3, 2]
+                expect(SemiHeapSort.sort([1, 2, 3], &@comp)).to eq [1, 3, 2]
             end
         end
     end
@@ -191,8 +191,8 @@ describe SemiHeapSort do
 
         describe 'semi heap sort' do
             it 'sorts items correctly' do
-                expect(SemiHeapSort.semi_heap_sort((1..8).to_a, &@comp)).to eq [1, 7, 3, 2, 4, 5, 8, 6]
-                expect(SemiHeapSort.semi_heap_sort((1..8).to_a.reverse, &@comp)).to eq [8, 7, 4, 1, 5, 3, 2, 6]
+                expect(SemiHeapSort.sort((1..8).to_a, &@comp)).to eq [1, 7, 3, 2, 4, 5, 8, 6]
+                expect(SemiHeapSort.sort((1..8).to_a.reverse, &@comp)).to eq [8, 7, 4, 1, 5, 3, 2, 6]
             end
         end
     end
