@@ -1,4 +1,4 @@
-require_relative '../sort'
+require_relative '../src/sort'
 
 describe SemiHeapSort do
     before do
