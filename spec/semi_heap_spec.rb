@@ -25,7 +25,9 @@ describe SemiHeapSort do
                 expect(SemiHeapSort.max(2, 3, 1, &@comp)).to eq 1
                 expect(SemiHeapSort.max(3, 2, 1, &@comp)).to eq 1
             end
+        end
 
+        describe 'is_max?' do
             it 'reports 1 as max' do expect(SemiHeapSort.is_max?(1, 2, 3, &@comp)).to eq true end
             it 'reports 2 as NOT max' do expect(SemiHeapSort.is_max?(2, 1, 3, &@comp)).to eq false end
             it 'reports 3 as NOT max' do expect(SemiHeapSort.is_max?(3, 1, 2, &@comp)).to eq false end

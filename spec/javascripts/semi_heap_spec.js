@@ -27,7 +27,9 @@ describe("SemiHeapSort", function() {
                 expect(SemiHeapSort.max(2, 3, 1, comp)).toEqual(1);
                 expect(SemiHeapSort.max(3, 2, 1, comp)).toEqual(1);
             });
+        });
 
+        describe("is_max", function() {
             it("reports 1 as max", function() {
                 expect(SemiHeapSort.is_max(1, 2, 3, comp)).toBe(true);
             });
