@@ -69,13 +69,13 @@ var SemiHeapSort = {
     },
 
     build_semi_heap: function(a, comparator) {
-        a = a.concat(new Array(a.length).fill(null));
-
-        for (i = Math.floor((a.length - 1) / 4); i <= 0; i--) { 
-           self.semi_heapify(a, i, comparator);
+        var result = a.slice();
+        result = result.concat(new Array(a.length).fill(null));
+        for (i = Math.floor((result.length - 1) / 4); i >= 0; i--) { 
+            this.semi_heapify(result, i, comparator);
         }
 
-        return a;
+        return result;
     },
 
     sort: function(elements, comparator) {
