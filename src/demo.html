@@ -21,7 +21,7 @@
 
       div#input,
       div#choice {
-        height: 80%;
+        height: 70%;
       }
 
       div#input textarea {
@@ -57,6 +57,10 @@
         white-space: normal;
       }
 
+      .help-block {
+        margin-top: 1em;
+      }
+
       div#result ol {
         display: inline-block;
         text-align: left;
@@ -87,8 +91,10 @@
         event = event || window.event;
 
         if (event.keyCode == '37') {
+          $('.help-block').hide();
           $('#left').trigger('click');
         } else if (event.keyCode == '39') {
+          $('.help-block').hide();
           $('#right').trigger('click');
         }
       };
@@ -231,6 +237,7 @@
             <div id="right" class="btn btn-default">Right</div>
           </div>
         </div>
+        <span class="help-block">Hint: Use the arrow keys.</span>
       </div>
 
       <div id="result">
