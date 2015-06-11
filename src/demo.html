@@ -37,14 +37,15 @@
         display: none;
       }
 
-      div#choice {
+      div#choice .table {
         display: table;
+        height: 100%;
         border-collapse: separate;
         border-spacing: 1em 0px;
         margin: auto;
       }
 
-      div#choice .wrapper {
+      div#choice .table .row {
         display: table-row;
       }
 
@@ -224,9 +225,11 @@
       </div>
 
       <div id="choice">
-        <div class="wrapper">
-          <div id="left" class="btn btn-default">Some really long text yeah</div>
-          <div id="right" class="btn btn-default">And another pretty long sentence</div>
+        <div class="table">
+          <div class="row">
+            <div id="left" class="btn btn-default">Left</div>
+            <div id="right" class="btn btn-default">Right</div>
+          </div>
         </div>
       </div>
 
