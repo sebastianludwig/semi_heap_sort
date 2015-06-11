@@ -71,7 +71,7 @@ var SemiHeapSort = {
     build_semi_heap: function(a, comparator) {
         var result = a.slice();
         result = result.concat(new Array(a.length).fill(null));
-        for (i = Math.floor((result.length - 1) / 4); i >= 0; i--) { 
+        for (var i = Math.floor((result.length - 1) / 4); i >= 0; i--) { 
             this.semi_heapify(result, i, comparator);
         }
 
