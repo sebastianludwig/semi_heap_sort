@@ -50,7 +50,7 @@ if __FILE__ == $0
 
     result = SemiHeapSort.sort(elements) do |a, b|
         if T[a[:index], b[:index]].nil? and a[:index] != b[:index]
-            winner = pick_winner(a[:label], b[:label]) == :left
+            winner = pick_winner(a[:label], b[:label])
             T[a[:index], b[:index]] = winner == :left ? 1 : 0
             T[b[:index], a[:index]] = winner == :left ? 0 : 1
         end
