@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Task Tinder</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="semi_heap_sort.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    <style>
+      html, body, .container {
+        height: 100%;
+        text-align: center;
+      }
+
+      div#input,
+      div#choice {
+        height: 80%;
+      }
+
+      div#input textarea {
+        height: 80%;
+        width: 30%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 2em;
+      }
+
+      div#choice,
+      div#result {
+        display: none;
+      }
+
+      div#choice {
+        display: table;
+        border-collapse: separate;
+        border-spacing: 1em 0px;
+        margin: auto;
+      }
+
+      div#choice .wrapper {
+        display: table-row;
+      }
+
+      #left, #right {
+        display: table-cell;
+        width: 45%;
+        vertical-align: middle;
+        font-size: 300%;
+        white-space: normal;
+      }
+
+      div#result ol {
+        display: inline-block;
+        text-align: left;
+        font-size: 250%;
+      }
+
+      div#result input[type=checkbox] {
+        float: right;
+        margin-top: 0.6em;
+        margin-left: 1em;
+      }
+
+      div#result li.done {
+        color: #959595;
+        text-decoration: line-through;
+      }
+
+      .result-item {
+        cursor: pointer;
+      }
+    </style>
+
+    <script type="text/javascript">
+      document.onkeydown = function(event) {
+        if (!$('#choice').is(":visible")) {
+          return;
+        }
+        event = event || window.event;
+
+        if (event.keyCode == '37') {
+          $('#left').trigger('click');
+        } else if (event.keyCode == '39') {
+          $('#right').trigger('click');
+        }
+      };
+
+      $(function() {
+        var saveTournament = function(tournament) {
+          $('body').data('tournament', JSON.stringify(tournament));
+        };
+
+        var loadTournament = function() {
+          return JSON.parse($('body').data('tournament'));
+        };
+
+        var saveEntries = function(entries) {
+          $('body').data('entries', JSON.stringify(entries));
+        };
+
+        var loadEntries = function() {
+          return JSON.parse($('body').data('entries'));
+        };
+
+        var displayResult = function(result) {
+          $('#choice').hide();
+          var labels = result.map(function(e) { return e["label"] });
+
+          var list = $('#result ol');
+          var prototype = $('.result-item');
+          for (var i in labels) {
+            var entry = prototype.clone(true, true);
+            entry.find('span').text(labels[i]);
+            list.append(entry);
+          };
+          prototype.remove();
+
+          $('#choice').hide();
+          $('#result').show();
+        };
+
+        var sort = function() {
+          var entries = loadEntries();
+          try {
+            var output = SemiHeapSort.sort(entries, compare);
+            displayResult(output);
+          }
+          catch (interrupted) {}
+        };
+
+        var update_choice_elements = function(a, b) {
+          var left = $("#left");
+          left.data("index", a["index"]);
+          left.html(a["label"]);
+
+          var right = $("#right");
+          right.data("index", b["index"]);
+          right.html(b["label"]);
+        };
+
+        var compare = function(a, b) {
+          var tournament = loadTournament();
+
+          if (tournament[a["index"]][b["index"]] == null && a["index"] != b["index"]) {
+            update_choice_elements(a, b);
+            throw "wait for user decision";
+          }
+          
+          return tournament[a["index"]][b["index"]] == 1 ? -1 : 1;
+        };
+
+        $("#left, #right").click(function() {
+          if ($('#left.btn-primary, #right.btn-primary').length) {
+            return;   // prevent double selection
+          }
+
+          var tournament = loadTournament();
+          var button = $(this);
+
+          var left_index = parseInt($("#left").data("index"));
+          var right_index = parseInt($("#right").data("index"));
+          var winner_left = button.data("index") == left_index;
+          tournament[left_index][right_index] = winner_left ? 1 : 0;
+          tournament[right_index][left_index] = winner_left ? 0 : 1;
+
+          saveTournament(tournament);
+
+          button.addClass('btn-primary');
+          setTimeout(function() {
+            button.removeClass('btn-primary');
+            sort();
+          }, 200);
+        });
+
+        $('#go-button').click(function() {
+          var input = $('#entries').val().split("\n");
+
+          // create entries
+          var entries = [];
+          for (var i in input) {
+            if (input[i].trim().length) {
+              entries.push({ "index": entries.length, "label": input[i] });
+            }
+          }
+
+          // create 2D array
+          var tournament = new Array(entries.length);
+          for (var i = 0; i < tournament.length; i++) {
+            tournament[i] = new Array(entries.length);
+          }
+
+          saveEntries(entries);
+          saveTournament(tournament);
+          $('#input').hide();
+          $('#choice').show();
+
+          sort();
+        });
+
+        $('.result-item').click(function () {
+          $(this).toggleClass('done');
+          $(this).find('input').prop('checked', $(this).hasClass('done'));
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="page-header">
+        <h1>Task Tinder</h1>
+      </div>
+
+      <div id="input">
+        <textarea id="entries" class="form-control"></textarea>
+
+        <button id="go-button" type="button" class="btn btn-primary btn-lg">Go!</button>
+      </div>
+
+      <div id="choice">
+        <div class="wrapper">
+          <div id="left" class="btn btn-default">Some really long text yeah</div>
+          <div id="right" class="btn btn-default">And another pretty long sentence</div>
+        </div>
+      </div>
+
+      <div id="result">
+        <ol>
+          <li class="result-item"><span>Result</span><input type="checkbox"></li>
+        </ol>
+      </div>
+
+    </div>
+    
+
+    
+  </body>
+</html>
