@@ -116,6 +116,27 @@
           return JSON.parse($('body').data('entries'));
         };
 
+        var update_choice_elements = function(a, b) {
+          var left = $("#left");
+          left.data("index", a["index"]);
+          left.html(a["label"]);
+
+          var right = $("#right");
+          right.data("index", b["index"]);
+          right.html(b["label"]);
+        };
+
+        var compare = function(a, b) {
+          var tournament = loadTournament();
+
+          if (tournament[a["index"]][b["index"]] == null && a["index"] != b["index"]) {
+            update_choice_elements(a, b);
+            throw "wait for user decision";
+          }
+          
+          return tournament[a["index"]][b["index"]] == 1 ? -1 : 1;
+        };
+
         var displayResult = function(result) {
           $('#choice').hide();
           var labels = result.map(function(e) { return e["label"] });
@@ -140,27 +161,6 @@
             displayResult(output);
           }
           catch (interrupted) {}
-        };
-
-        var update_choice_elements = function(a, b) {
-          var left = $("#left");
-          left.data("index", a["index"]);
-          left.html(a["label"]);
-
-          var right = $("#right");
-          right.data("index", b["index"]);
-          right.html(b["label"]);
-        };
-
-        var compare = function(a, b) {
-          var tournament = loadTournament();
-
-          if (tournament[a["index"]][b["index"]] == null && a["index"] != b["index"]) {
-            update_choice_elements(a, b);
-            throw "wait for user decision";
-          }
-          
-          return tournament[a["index"]][b["index"]] == 1 ? -1 : 1;
         };
 
         $("#left, #right").click(function() {
