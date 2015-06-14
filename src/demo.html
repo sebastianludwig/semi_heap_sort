@@ -32,6 +32,10 @@
         margin-bottom: 2em;
       }
 
+      #go-button {
+        margin-bottom: 2em;
+      }
+
       div#choice,
       div#result {
         display: none;
@@ -40,8 +44,8 @@
       div#choice .table {
         display: table;
         height: 100%;
-        border-collapse: separate;
-        border-spacing: 1em 0px;
+        /*border-collapse: separate;*/
+        /*border-spacing: 1em 0px;*/
         margin: auto;
       }
 
@@ -49,9 +53,14 @@
         display: table-row;
       }
 
+      #spacer {
+        display: table-cell;
+        width: 2%;
+      }
+
       #left, #right {
         display: table-cell;
-        width: 45%;
+        width: 49%;
         vertical-align: middle;
         font-size: 300%;
         white-space: normal;
@@ -234,6 +243,7 @@
         <div class="table">
           <div class="row">
             <div id="left" class="btn btn-default">Left</div>
+            <div id="spacer"></div>
             <div id="right" class="btn btn-default">Right</div>
           </div>
         </div>
