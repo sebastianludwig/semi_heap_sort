@@ -19,12 +19,18 @@
         text-align: center;
       }
 
+      #howto ol {
+        list-style-position: inside;
+        font-size: 120%;
+        margin: 3em 0em;
+      }
+
       div#input,
       div#choice {
         height: 70%;
       }
 
-      div#input textarea {
+      #entries {
         height: 80%;
         width: 30%;
         margin-left: auto;
@@ -36,6 +42,7 @@
         margin-bottom: 2em;
       }
 
+      div#input,
       div#choice,
       div#result {
         display: none;
@@ -220,6 +227,11 @@
           sort();
         });
 
+        $('#gotit').click(function() {
+          $('#howto').hide();
+          $('#input').show();
+        });
+
         $('.result-item').click(function () {
           $(this).toggleClass('done');
           $(this).find('input').prop('checked', $(this).hasClass('done'));
@@ -228,13 +240,28 @@
     </script>
   </head>
   <body>
+    <a href="https://github.com/sebastianludwig/semi_heap_sort"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
     <div class="container">
       <div class="page-header">
-        <h1>Task Tinder</h1>
+        <h1 title="Find Hamiltonian paths in intransitive sets">Task Tinder</h1>
+      </div>
+
+      <div id="howto">
+        <h3><a href="http://procrastinative.ninja/2015/09/06/task-tinder/">Hard time sorting things?<br>Difficulties to decide on an order?</a></h3>
+
+        <ol>
+          <li>Enter list of things you want to sort</li>
+          <li>Select the winner for each presented pair</li>
+          <li>Enjoy your prioritized list</li>
+        </ol>
+
+        <button id="gotit" type="button" class="btn btn-primary btn-lg">Got it</button>
+
+        <span class="help-block">Hint: Put your most important item first to prime the result in case of multiple possible solutions</span>
       </div>
 
       <div id="input">
-        <textarea id="entries" class="form-control"></textarea>
+        <textarea id="entries" class="form-control" placeholder="Enter your items here, one per line"></textarea>
 
         <button id="go-button" type="button" class="btn btn-primary btn-lg">Go!</button>
       </div>
